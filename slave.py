@@ -1,4 +1,3 @@
-# slave_node.py
 import socket
 import subprocess
 import json
@@ -13,7 +12,7 @@ def handle_command(command):
             return output.decode()
         except Exception as e:
             return str(e)
-    return "Unknown command"
+    return "Commande inconnue"
 
 s = socket.socket()
 s.bind((HOST, PORT))
@@ -22,7 +21,6 @@ print(f"[SLAVE] En écoute sur {PORT}")
 
 while True:
     conn, addr = s.accept()
-    print(f"[SLAVE] Connexion de {addr}")
     data = conn.recv(2048)
     try:
         command = json.loads(data.decode())
