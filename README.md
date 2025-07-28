@@ -38,6 +38,28 @@ pkg install python git net-tools
 pip install -r requirements.txt
 ```
 
+JTR:
+
+```
+apt install john
+```
+
+rockyou and others wordlists:
+
+```
+sudo apt update
+sudo apt install -y john wordlists
+```
+
+```
+gzip -d /usr/share/wordlists/rockyou.txt.gz
+```
+
+```
+cp /usr/share/wordlists/rockyou.txt ./scripts/bruteforce_wordlist.txt
+```
+
+
 Sur les esclaves :
 
 ```
