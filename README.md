@@ -38,17 +38,11 @@ pkg install python git net-tools
 pip install -r requirements.txt
 ```
 
-JTR:
-
-```
-apt install john
-```
-
 rockyou and others wordlists:
 
 ```
 sudo apt update
-sudo apt install -y john wordlists
+sudo apt install -y john wordlists hashid
 ```
 
 ```
