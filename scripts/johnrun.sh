@@ -1,18 +1,30 @@
 #!/bin/bash
 
-HASH_FILE="$1"
-WORDLIST="$2"
+# === CONFIGURATION ===
+HASH_FILE="./hashes.txt"
+WORDLIST="./bruteforce_wordlist.txt"
+JOHN_PATH="$(which john)"
 
-if [[ -z "$HASH_FILE" || -z "$WORDLIST" ]]; then
-    echo "[❌] Utilisation : ./johnrun.sh <hashfile> <wordlist>"
+# === VÉRIFICATIONS ===
+if [[ ! -f "$HASH_FILE" ]]; then
+    echo "[❌] Fichier de hash manquant: $HASH_FILE"
     exit 1
 fi
 
-if ! command -v john &> /dev/null; then
-    echo "[❌] John the Ripper n'est pas installé. Installe-le avec : pkg install john"
+if [[ ! -f "$WORDLIST" ]]; then
+    echo "[❌] Wordlist introuvable: $WORDLIST"
     exit 1
 fi
 
-echo "[🔐] Lancement de John sur le fichier $HASH_FILE avec la wordlist $WORDLIST"
-john --wordlist="$WORDLIST" "$HASH_FILE"
-john --show "$HASH_FILE"
+if [[ -z "$JOHN_PATH" ]]; then
+    echo "[❌] John the Ripper n'est pas installé."
+    exit 1
+fi
+
+# === LANCEMENT DE L'ATTAQUE ===
+echo "[⚔️] Lancement de John the Ripper sur $HASH_FILE avec $WORDLIST..."
+$JOHN_PATH --wordlist="$WORDLIST" "$HASH_FILE"
+
+# === AFFICHAGE DES RÉSULTATS ===
+echo -e "\n[✅] Résultats :"
+$JOHN_PATH --show "$HASH_FILE"
